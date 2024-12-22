@@ -16,6 +16,6 @@ beforeEach( async ({ page }) => {
     await expect(page).toHaveTitle(/Viva Glint/);
   });
 
-  test('click on settings', async ({ page }) => {
+  test('click on reports', async ({ page }) => {
     await page.click(locators.reports_button);
   });
