@@ -3,7 +3,6 @@ import { user } from './testdata';
 import { locators } from '../locators/dashboard_locators';
 import { HomePage } from '../pages/home-page';
 import { LoginPage } from '../pages/login-page';
-import { SettingsPage } from '../pages/settings-page';
 import { LogoutPage } from '../pages/logout-page';
 
 beforeEach( async ({ page }) => {
