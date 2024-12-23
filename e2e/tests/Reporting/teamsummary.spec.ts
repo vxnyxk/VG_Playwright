@@ -8,7 +8,8 @@ import { reportsPage }  from '../../pages/reports';
 
 let reportspage: reportsPage;
 
-beforeEach(async ({ page }) => {
+test.describe('Admin based TC,Group 1', () => {
+  test.beforeEach(async ({ page }) => {
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
   await homepage.open();
@@ -38,4 +39,7 @@ test('TC-04,Report Card Verification',async ({page}) => {
   await page.waitForSelector(teamsummary_locators.survey_card);
   await expect(page.locator(teamsummary_locators.survey_card)).toBeVisible();
   await page.locator(teamsummary_locators.survey_card).screenshot({ path: 'test-results/card_screenshot.png' });
+});
+
+
 });
