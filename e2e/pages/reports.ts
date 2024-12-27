@@ -15,5 +15,14 @@ export class reportsPage {
         await this.page.click(locators.teamsummary_button);
     }
 
+    async click_comments(){
+        await this.page.locator(teamsummary_locators.view_comments).click();
+    }
+
+    async Program_change() {
+    
+        await this.page.locator(locators.adhoc1).click();
+    
+      }
 
 }

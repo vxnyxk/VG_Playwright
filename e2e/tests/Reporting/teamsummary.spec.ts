@@ -7,8 +7,11 @@ import { LoginPage }  from '../../pages/login-page';
 import { reportsPage }  from '../../pages/reports';
 
 let reportspage: reportsPage;
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-test.describe('Admin based TC,Group 1', () => {
+test.describe('Admin based Test cases,Group 1', () => {
   test.beforeEach(async ({ page }) => {
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
@@ -17,24 +20,24 @@ test.describe('Admin based TC,Group 1', () => {
   await page.click(locators.reports_button);
 });
 
-test('TC-01-Check VG Title', async ({ page }) => {
+test('(444821)TC-01-Check VG Title', async ({ page }) => {
   await reportspage.opentsr();
   await expect(page).toHaveTitle(/Viva Glint/);
 });
 
-test('TC-02-Open Team Summary', async ({ page }) => {
+test('(444822)TC-02-Open Team Summary', async ({ page }) => {
   await reportspage.opentsr();
   //await page.click(locators.teamsummary_button);
 });
 
-test('TC-03,Check Team Summary Report Name',async ({page}) => {
+test('(444824)TC-03,Check Team Summary Report Name',async ({page}) => {
   await reportspage.opentsr();
   await expect(page.getByText('Team Summary')).toBeVisible();
   await page.waitForTimeout(3000);
   await page.screenshot({ path: 'test-results/titlescreenshot.png' });
 });
 
-test('TC-04,Report Card Verification',async ({page}) => {
+test('(444825)TC-04,Report Card Verification',async ({page}) => {
   await reportspage.opentsr();
   await page.waitForSelector(teamsummary_locators.survey_card);
   await expect(page.locator(teamsummary_locators.survey_card)).toBeVisible();
@@ -42,4 +45,70 @@ test('TC-04,Report Card Verification',async ({page}) => {
 });
 
 
+test('(444826)TC-05,Check Primary Hierarchy',async ({page}) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.Primary_hierarchy);
+  await expect(page.locator(teamsummary_locators.Primary_hierarchy)).toBeVisible();
+  await page.locator(teamsummary_locators.Primary_hierarchy).screenshot({ path: 'test-results/primary_hierarchy.png' });
+});
+
+test('(444827)TC-06,Check Response Rate and Comments Card',async ({page}) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.reponserate_comments_card);
+  await expect(page.locator(teamsummary_locators.reponserate_comments_card)).toBeVisible();
+  await page.locator(teamsummary_locators.reponserate_comments_card).screenshot({ path: 'test-results/responserate.png' });
+});
+
+test('(444828)TC-08,Check Comments Count', async ({page}) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.reponserate_comments_card);
+  await expect(page.locator(teamsummary_locators.reponserate_comments_card)).toBeVisible();
+  await page.locator(teamsummary_locators.reponserate_comments_card).screenshot({ path: 'test-results/commentscount.png' });
+});
+
+test('(444829)TC-09,Check driver with most comments', async ({page}) => {
+  //Most Commented Driver in this CLient is "Care and Acts ethically"
+  await reportspage.opentsr();
+  //await expect(page.getByText('Care and Acts ethically')).toBeVisible();
+  await expect(page.locator(teamsummary_locators.reponserate_comments_card).getByText('Care and Acts ethically')).toBeVisible();
+});
+
+test('(444830)TC-10,Check driver with least comments', async ({page}) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.view_comments);
+  await expect(page.locator(teamsummary_locators.view_comments)).toBeVisible();
+  //await page.locator(teamsummary_locators.view_comments).click();
+  await reportspage.click_comments();
+});
+
+test('(444831)TC-11,Check Comments Visibility', async ({page}) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.view_comments);
+  await expect(page.locator(teamsummary_locators.view_comments)).toBeVisible();
+  await reportspage.click_comments();
+  await page.waitForSelector(teamsummary_locators.view_comments_report);
+  await page.locator(teamsummary_locators.view_comments_report).click();
+});
+});
+
+//Group of Test Cases on qa20191108_1 client 
+
+test.describe('Test Cases in qa20191108_1 client', () => {
+  test.beforeEach(async ({ page }) => {
+    const homepage = new HomePage(page);
+    reportspage = new reportsPage(page);
+    await homepage.open();
+    await new LoginPage(page).login(user.email2, user.password, user.companyid2);
+    await page.click(locators.reports_button);
+    //await sleep(5000);
+    await page.waitForSelector(locators.adhoc1);
+    await reportspage.Program_change();
+    await reportspage.opentsr();
+  });
+
+  test('(444832)TC-12,Check Celebrating success ', async ({ page }) => {
+    await page.waitForSelector(teamsummary_locators.celebrating_success);
+    await expect(page.locator(teamsummary_locators.celebrating_success)).toBeVisible();
+    await page.locator(teamsummary_locators.celebrating_success).screenshot({ path: 'test-results/celebrating_success.png' });
+  });
 });
