@@ -23,6 +23,11 @@ export class reportsPage {
     
         await this.page.locator(locators.adhoc1).click();
     
-      }
+    }
+
+    async dismiss()
+    {
+        await this.page.locator(teamsummary_locators.dismiss_button).click();
+    }
 
 }

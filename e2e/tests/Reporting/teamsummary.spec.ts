@@ -5,6 +5,7 @@ import { teamsummary_locators } from '../../fixtures/tsr_locators';
 import { HomePage } from '../../pages/home-page';
 import { LoginPage }  from '../../pages/login-page';
 import { reportsPage }  from '../../pages/reports';
+import { waitForDebugger } from 'inspector';
 
 let reportspage: reportsPage;
 function sleep(ms: number) {
@@ -88,6 +89,35 @@ test('(444831)TC-11,Check Comments Visibility', async ({page}) => {
   await reportspage.click_comments();
   await page.waitForSelector(teamsummary_locators.view_comments_report);
   await page.locator(teamsummary_locators.view_comments_report).click();
+});
+
+test('(444833,444834)TC-14,Check Key Outcome section ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.waitForSelector(teamsummary_locators.key_outcome);
+  await expect(page.locator(teamsummary_locators.key_outcome)).toBeVisible();
+  await page.locator(teamsummary_locators.key_outcome).screenshot({ path: 'test-results/key_outcome.png' });
+});
+
+test('(444835)TC-15,Check Score Section ', async ({ page }) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.score_svg_path)).toBeVisible();
+  await page.locator(teamsummary_locators.score_svg_path).click();
+  await sleep(3000);
+});
+
+test('(444836)TC-16,Check Learn More Button ', async ({ page }) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.learn_more_button)).toBeVisible();
+  await page.locator(teamsummary_locators.learn_more_button).click();
+
+});
+
+test('(444837)TC-17,Check Help Button ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.score_in_comparison_help_button).click();
+  await reportsPage.dismiss();
+  await page.locator(teamsummary_locators.favourability_help_button).click();
+  await reportsPage.dismiss();
 });
 });
 
