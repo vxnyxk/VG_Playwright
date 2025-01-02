@@ -17,4 +17,9 @@ export const teamsummary_locators = {
     example_video : "(//iframe[@title='Effective Quality Standards'])[1]",
     drivers_section : "(//div[@class='vg-section-layout-container'])[3]",
     primary_hierarchy : "(//div[@class='vg-section-layout-container'])[4]",
+    Acceptance : "(//div[@role='cell'])[7]",
+    Accomplishment_work : "(//div[@role='cell'])[14]",
+    Care : "(//div[@role='cell'])[21]",
+    Acts_Ethically : "(//div[@role='cell'])[28]",
+    choose_a_focus_area : "(//button[normalize-space()='Choose As Focus Area'])[1]",
 };

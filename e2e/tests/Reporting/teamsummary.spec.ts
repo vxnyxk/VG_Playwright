@@ -6,9 +6,11 @@ import { HomePage } from '../../pages/home-page';
 import { LoginPage }  from '../../pages/login-page';
 import { reportsPage }  from '../../pages/reports';
 import { waitForDebugger } from 'inspector';
+import * as readline from 'readline';
 
 let reportspage: reportsPage;
-//let buttonIndex: number = 2; 
+
+
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -193,10 +195,10 @@ test('(444847)TC-25,Detailed Score Reports ', async ({ page }) => {
   //Modify here to choose the button or driver to choose
   let buttonIndex: number = 3; 
   const buttons = [
-    page.locator("(//div[@role='cell'])[7]"), //Acceptance
-    page.locator("(//div[@role='cell'])[14]"), //Accomplishment-work
-    page.locator("(//div[@role='cell'])[21]"), //Care
-    page.locator("(//div[@role='cell'])[28]"), //Acts Ethically
+    page.locator(teamsummary_locators.Acceptance), //Acceptance
+    page.locator(teamsummary_locators.Accomplishment_work), //Accomplishment-work
+    page.locator(teamsummary_locators.Care), //Care
+    page.locator(teamsummary_locators.Acts_Ethically), //Acts Ethically
   ];
 
   switch (buttonIndex) {
@@ -217,6 +219,29 @@ test('(444847)TC-25,Detailed Score Reports ', async ({ page }) => {
   }
  
 });
+
+test('(444841)TC-26,Driver Summary Report ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.Acceptance).click();
+  await sleep(3000);
+  await page.screenshot({ path: 'test-results/Driversummary.png' , fullPage: true  }); 
+});
+
+test('(444851)TC-27,focus area ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.Acceptance).click();
+  await page.locator(teamsummary_locators.choose_a_focus_area).click();
+  await expect(page.getByText('Creating a New Focus Area')).toBeVisible();
+  if(await page.getByText('Creating a New Focus Area').isVisible()){
+  await page.screenshot({ path: 'test-results/focusarea.png'  });
+  }
+  else {
+    console.log('Section is not visible, skipping screenshot');
+  } 
+});
+
+
+
 
 });
 

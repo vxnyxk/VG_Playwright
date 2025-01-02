@@ -82,4 +82,62 @@ test.describe('Group 2', () => {
     await page.locator(teamsummary_locators.survey_card).screenshot({ path: 'test-results/card_screenshot.png' });
   });
 });
+
+
+
+//For review later
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+
+test('(444848)TC-26, Method 2-Detailed Score Reports', async ({ page }) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.drivers_section)).toBeVisible();
+
+  const buttonIndex = await new Promise<number>((resolve, reject) => {
+    rl.question('Please enter the button index (1-4): ', (input) => {
+      const index = parseInt(input, 10);
+      if (isNaN(index) || index < 1 || index > 4) {
+        console.log('Invalid index, please enter a number between 1 and 4.');
+        //rl.close();
+        reject(new Error('Invalid input'));
+      } else {
+        resolve(index);
+      }
+    });
+  });
+
+  // Wait for the button selection to complete before proceeding with the test
+  const buttons = [
+    page.locator("(//div[@role='cell'])[7]"),  // Acceptance
+    page.locator("(//div[@role='cell'])[14]"), // Accomplishment-work
+    page.locator("(//div[@role='cell'])[21]"), // Care
+    page.locator("(//div[@role='cell'])[28]"), // Acts Ethically
+  ];
+
+  // Click the corresponding button
+  switch (buttonIndex) {
+    case 1:
+      await buttons[0].click();
+      break;
+    case 2:
+      await buttons[1].click();
+      break;
+    case 3:
+      await buttons[2].click();
+      break;
+    case 4:
+      await buttons[3].click();
+      break;
+    default:
+      throw new Error('Invalid button index');
+  }
+
+  // Close the readline interface after the button click
+  //rl.close();
+});
+
 */
