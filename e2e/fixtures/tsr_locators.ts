@@ -11,4 +11,10 @@ export const teamsummary_locators = {
     score_in_comparison_help_button : "(//button[@aria-label='Score in comparison'])[1]",
     favourability_help_button : "(//button[@aria-label='Favorability'])[1]",
     dismiss_button : "(//button[@aria-label='Dismiss'])[1]",
+    key_outcome_button : "(//button[@class='keyOutcomeDialogButton'])[1]",
+    suggested_learnings_section : "(//div[@class='grid suggestedLearnings ng-star-inserted'])[1]",
+    suggested_actions_section : "(//div[@class='grid suggestedActions ng-star-inserted'])[1]",
+    example_video : "(//iframe[@title='Effective Quality Standards'])[1]",
+    drivers_section : "(//div[@class='vg-section-layout-container'])[3]",
+    primary_hierarchy : "(//div[@class='vg-section-layout-container'])[4]",
 };

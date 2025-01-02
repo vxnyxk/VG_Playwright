@@ -8,6 +8,7 @@ import { reportsPage }  from '../../pages/reports';
 import { waitForDebugger } from 'inspector';
 
 let reportspage: reportsPage;
+//let buttonIndex: number = 2; 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -112,13 +113,111 @@ test('(444836)TC-16,Check Learn More Button ', async ({ page }) => {
 
 });
 
-test('(444837)TC-17,Check Help Button ', async ({ page }) => {
+test('(444837)TC-17,Check Score in Comparison Help Button ', async ({ page }) => {
   await reportspage.opentsr();
   await page.locator(teamsummary_locators.score_in_comparison_help_button).click();
-  await reportsPage.dismiss();
-  await page.locator(teamsummary_locators.favourability_help_button).click();
-  await reportsPage.dismiss();
+  await reportspage.dismiss();
 });
+
+test('(444837-2)TC-18,Check Favourability Help Button ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.favourability_help_button).click();
+  await reportspage.dismiss();
+});
+
+test('(444838-2)TC-19,S&O Page ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.key_outcome_button).click();
+  await expect(page.locator(teamsummary_locators.suggested_learnings_section)).toBeVisible();
+  //await page.screenshot({ path: 'test-results/s&opage.png' , fullPage: true  }); 
+});
+
+
+test('(444838)TC-20,S&O Suggested Learnings Page ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.key_outcome_button).click();
+  await sleep(3000);
+  await expect(page.locator(teamsummary_locators.suggested_learnings_section)).toBeVisible();
+
+  if (await page.locator(teamsummary_locators.suggested_learnings_section).isVisible()) {
+    await page.locator(teamsummary_locators.suggested_learnings_section).screenshot({ path: 'test-results/suggested_learnings_section.png' });
+  } else {
+    console.log('Element is not visible, skipping screenshot');
+  }
+});
+
+
+test('(444838-3)TC-21,S&O Page-Suggested Actions ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.key_outcome_button).click();
+  await sleep(3000);
+  await expect(page.locator(teamsummary_locators.suggested_actions_section)).toBeVisible();
+
+  if (await page.locator(teamsummary_locators.suggested_actions_section).isVisible()) {
+    await page.locator(teamsummary_locators.suggested_actions_section).screenshot({ path: 'test-results/suggested_actions_section.png' });
+  } else {
+    console.log('Element is not visible, skipping screenshot');
+  }
+});
+
+test('(444841)TC-22,Suggested Learnings Video ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.key_outcome_button).click();
+  await expect(page.locator(teamsummary_locators.suggested_learnings_section)).toBeVisible();
+  await page.locator(teamsummary_locators.example_video).click();
+});
+
+test ('(444843)TC-23,Check Drivers ', async ({page}) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.drivers_section)).toBeVisible();
+  if(await  page.locator(teamsummary_locators.drivers_section).isVisible()){
+    await page.locator(teamsummary_locators.drivers_section).screenshot({ path: 'test-results/drivers_section.png' });
+  }else {
+      console.log('Section is not visible, skipping screenshot');
+    }  
+});
+
+test ('(444844)TC-24,Primary Hierarchy ', async ({page}) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.primary_hierarchy)).toBeVisible();
+  if(await page.locator(teamsummary_locators.primary_hierarchy).isVisible()){
+    await page.locator(teamsummary_locators.primary_hierarchy).screenshot({ path: 'test-results/primary_hierarchy.png' });  
+  } else {
+    console.log('Section is not visible, skipping screenshot');
+  } 
+});
+
+test('(444847)TC-25,Detailed Score Reports ', async ({ page }) => {
+  await reportspage.opentsr();
+  await expect(page.locator(teamsummary_locators.drivers_section)).toBeVisible();
+  //Modify here to choose the button or driver to choose
+  let buttonIndex: number = 3; 
+  const buttons = [
+    page.locator("(//div[@role='cell'])[7]"), //Acceptance
+    page.locator("(//div[@role='cell'])[14]"), //Accomplishment-work
+    page.locator("(//div[@role='cell'])[21]"), //Care
+    page.locator("(//div[@role='cell'])[28]"), //Acts Ethically
+  ];
+
+  switch (buttonIndex) {
+    case 1:
+      await buttons[0].click();
+      break;
+    case 2:
+      await buttons[1].click();
+      break;
+    case 3:
+      await buttons[2].click();
+      break;
+    case 4:
+      await buttons[3].click();
+      break;
+    default:
+      throw new Error('Invalid button index');
+  }
+ 
+});
+
 });
 
 //Group of Test Cases on qa20191108_1 client 
