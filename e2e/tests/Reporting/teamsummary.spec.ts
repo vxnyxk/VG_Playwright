@@ -224,8 +224,9 @@ test('(444841)TC-26,Driver Summary Report ', async ({ page }) => {
   await reportspage.opentsr();
   await page.locator(teamsummary_locators.Acceptance).click();
   await sleep(3000);
-  await page.screenshot({ path: 'test-results/Driversummary.png' , fullPage: true  }); 
-});
+  await page.screenshot({ path: 'test-results/Driversummary.png' }); 
+}); 
+
 
 test('(444851)TC-27,focus area ', async ({ page }) => {
   await reportspage.opentsr();
@@ -238,12 +239,10 @@ test('(444851)TC-27,focus area ', async ({ page }) => {
   else {
     console.log('Section is not visible, skipping screenshot');
   } 
+  });
 });
 
 
-
-
-});
 
 //Group of Test Cases on qa20191108_1 client 
 
@@ -257,10 +256,11 @@ test.describe('Test Cases in qa20191108_1 client', () => {
     //await sleep(5000);
     await page.waitForSelector(locators.adhoc1);
     await reportspage.Program_change();
-    await reportspage.opentsr();
+    //await reportspage.opentsr();
   });
 
   test('(444832)TC-12,Check Celebrating success ', async ({ page }) => {
+    await reportspage.opentsr();
     await page.waitForSelector(teamsummary_locators.celebrating_success);
     await expect(page.locator(teamsummary_locators.celebrating_success)).toBeVisible();
     await page.locator(teamsummary_locators.celebrating_success).screenshot({ path: 'test-results/celebrating_success.png' });
