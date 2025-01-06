@@ -18,9 +18,9 @@ function sleep(ms: number) {
 test.describe('Admin based Test cases,Group 1', () => {
   test.setTimeout(60000);
   test.beforeEach(async ({ page }) => {
-  //test.setTimeout(60000);
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
+  await page.setViewportSize({ width: 1920, height: 1080 });
   await homepage.open();
   await new LoginPage(page).login(user.email, user.password, user.companyid);
   await page.click(locators.reports_button);
