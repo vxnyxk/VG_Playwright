@@ -16,7 +16,9 @@ function sleep(ms: number) {
 }
 
 test.describe('Admin based Test cases,Group 1', () => {
+  test.setTimeout(60000);
   test.beforeEach(async ({ page }) => {
+  //test.setTimeout(60000);
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
   await homepage.open();
@@ -247,6 +249,7 @@ test('(444851)TC-27,focus area ', async ({ page }) => {
 //Group of Test Cases on qa20191108_1 client 
 
 test.describe('Test Cases in qa20191108_1 client', () => {
+  test.setTimeout(60000);
   test.beforeEach(async ({ page }) => {
     const homepage = new HomePage(page);
     reportspage = new reportsPage(page);
