@@ -22,4 +22,10 @@ export const teamsummary_locators = {
     Care : "(//div[@role='cell'])[21]",
     Acts_Ethically : "(//div[@role='cell'])[28]",
     choose_a_focus_area : "(//button[normalize-space()='Choose As Focus Area'])[1]",
+    more_button : "//glint-dropdown[@id='reportOverflowDropdown']//div[@class='menuContainer']",
+    Add_section_01 : '//*[@id="option0"]',
+    section_01 : '//*[@id="reportDetailSectionAddSlidey"]/glint-slidey/div/div[3]/div/div/section/div/glint-report-section-add-list/ul/li[1]/glint-report-section-add-item/div/button',
+    Add_section_02 : "(//button[@id='reportDetailAddSectionButton'])[1]",
+    three_dots : "(//div[@class='menuContainer'])[6]",
+    remove_button : '//*[@id="option0"]',
 };

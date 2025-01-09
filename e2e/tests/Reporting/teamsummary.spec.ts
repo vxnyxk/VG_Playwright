@@ -4,7 +4,7 @@ import { locators } from '../../fixtures/dashboard_locators'
 import { teamsummary_locators } from '../../fixtures/tsr_locators';
 import { HomePage } from '../../pages/home-page';
 import { LoginPage }  from '../../pages/login-page';
-import { reportsPage }  from '../../pages/reports';
+import { reportsPage }  from '../../pages/reports_common_actions';
 import { waitForDebugger } from 'inspector';
 import * as readline from 'readline';
 
@@ -20,7 +20,7 @@ test.describe('Admin based Test cases,Group 1', () => {
   test.beforeEach(async ({ page }) => {
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
-  await page.setViewportSize({ width: 1920, height: 1080 });
+  //await page.setViewportSize({ width: 1920, height: 1080 });
   await homepage.open();
   await new LoginPage(page).login(user.email, user.password, user.companyid);
   await page.click(locators.reports_button);
@@ -230,7 +230,7 @@ test('(444841)TC-26,Driver Summary Report ', async ({ page }) => {
 }); 
 
 
-test('(444851)TC-27,focus area ', async ({ page }) => {
+test('(444854)TC-27,focus area ', async ({ page }) => {
   await reportspage.opentsr();
   await page.locator(teamsummary_locators.Acceptance).click();
   await page.locator(teamsummary_locators.choose_a_focus_area).click();
@@ -242,6 +242,67 @@ test('(444851)TC-27,focus area ', async ({ page }) => {
     console.log('Section is not visible, skipping screenshot');
   } 
   });
+
+test('(444855)TC-28,Verify whether we can add sections in TSR ', async ({ page }) => {
+ await reportspage.opentsr();
+ await reportspage.Add_Sectionbutton();
+ await  page.locator(teamsummary_locators.section_01).click();
+ await sleep(2000);
+ await page.screenshot({ path: 'test-results/Add_section_01.png' , fullPage: true  });  
+});
+
+test('(444855-2)TC-29,Verify whether we can add Sections in TSR -02 ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.Add_section_02).click();
+  await  page.locator(teamsummary_locators.section_01).click();
+  await sleep(2000);
+  await page.screenshot({ path: 'test-results/Add_section_02.png' , fullPage: true  });  
+});
+
+test('(444855-3)TC-30,Verify whether we can add and remove the Sections-01  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.Add_Sectionbutton();
+  await  page.locator(teamsummary_locators.section_01).click();
+  await reportspage.remove_section();
+});
+
+test('(444855-3)TC-31,Verify whether we can add and remove the Sections-02  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await page.locator(teamsummary_locators.Add_section_02).click();
+  await  page.locator(teamsummary_locators.section_01).click();
+  await reportspage.remove_section();
+});
+
+test('(444856)TC-32,Verify whether we can change comparison  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.change_comparisons();
+});
+
+test('(444862)TC-33,Verify whether we can export powerpoint  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.Export_Powerpoint();
+});
+
+test('(444863)TC-34,Verify whether we can export Images  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.Export_Images();
+});
+
+test('(444863)TC-35,Verify whether we can export Spreadsheet  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.Export_Spreadsheet();
+});
+
+test('(444864)TC-36,Verify whether we can export PDF  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.Export_PDF();
+});
+
+test('(444864)TC-37,Verify whether we can save Report  ', async ({ page }) => {
+  await reportspage.opentsr();
+  await reportspage.save();
+});
+
 });
 
 
@@ -268,4 +329,5 @@ test.describe('Test Cases in qa20191108_1 client', () => {
     await expect(page.locator(teamsummary_locators.celebrating_success)).toBeVisible();
     await page.locator(teamsummary_locators.celebrating_success).screenshot({ path: 'test-results/celebrating_success.png' });
   });
+
 });
