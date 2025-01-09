@@ -17,6 +17,7 @@ function sleep(ms: number) {
 
 test.describe('Admin based Test cases,Group 1', () => {
   test.setTimeout(60000);
+  
   test.beforeEach(async ({ page }) => {
   const homepage = new HomePage(page);
   reportspage = new reportsPage(page);
@@ -26,7 +27,8 @@ test.describe('Admin based Test cases,Group 1', () => {
   await page.click(locators.reports_button);
 });
 
-test('(444821)TC-01-Check VG Title', async ({ page }) => {
+test('(444821)TC-01-Check VG Title', 
+  async ({ page }) => {
   await reportspage.opentsr();
   await expect(page).toHaveTitle(/Viva Glint/);
 });
