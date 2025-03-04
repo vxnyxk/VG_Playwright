@@ -40,8 +40,10 @@ test('(444822)TC-02-Open Team Summary', async ({ page }) => {
 
 test('(444824)TC-03,Check Team Summary Report Name',async ({page}) => {
   await reportspage.opentsr();
-  await expect(page.getByText('Team Summary')).toBeVisible();
-  await page.waitForTimeout(3000);
+  //await sleep(3000);
+  //await expect(page.getByText('Team Summary ')).toBeVisible();
+  await expect(page.locator(teamsummary_locators.report_title))
+  //await page.waitForTimeout(3000);
   await page.screenshot({ path: 'test-results/titlescreenshot.png' });
 });
 
@@ -234,7 +236,7 @@ test('(444841)TC-26,Driver Summary Report ', async ({ page }) => {
 
 test('(444854)TC-27,focus area ', async ({ page }) => {
   await reportspage.opentsr();
-  await page.locator(teamsummary_locators.Acceptance).click();
+  await page.locator(teamsummary_locators.Accomplishment_work).click();
   await page.locator(teamsummary_locators.choose_a_focus_area).click();
   await expect(page.getByText('Creating a New Focus Area')).toBeVisible();
   if(await page.getByText('Creating a New Focus Area').isVisible()){

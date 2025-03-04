@@ -28,4 +28,5 @@ export const teamsummary_locators = {
     Add_section_02 : "(//button[@id='reportDetailAddSectionButton'])[1]",
     three_dots : "(//div[@class='menuContainer'])[6]",
     remove_button : '//*[@id="option0"]',
+    report_title:'.reportTitle',
 };
